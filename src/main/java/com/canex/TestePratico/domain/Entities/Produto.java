@@ -1,4 +1,4 @@
-package com.canex.TestePratico.domain.Entities;
+package com.canex.TestePratico.domain.entities;
 
 import java.math.BigDecimal;
 
@@ -24,12 +24,6 @@ public class Produto {
     @Column(name = "preco_unitario")
     private BigDecimal preco;
 
-    @Column(name = "quantidade")
-    private BigDecimal quantidade;
-
-    @Column(name = "total")
-    private BigDecimal total;
-
     public Long getId() {
         return id;
     }
@@ -52,23 +46,5 @@ public class Produto {
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
-    }
-
-    public BigDecimal getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(BigDecimal quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    
+    }   
 }

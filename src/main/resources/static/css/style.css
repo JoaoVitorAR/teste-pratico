@@ -18,8 +18,20 @@ a{
     color: inherit;
 }
 
+a.btn-nav {
+    color: #fff;
+}
+
 a.btn-nav:hover{
     color: #000000;
+}
+
+.neo-section {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(#6c6cd3, #7bce7b, #ebeb83);
+    height: 566px;
 }
 
 .wm {
@@ -31,14 +43,6 @@ a.btn-nav:hover{
     display: flex;
     justify-content: end;
     padding: 20px;
-}
-
-.neo-section {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(#6c6cd3, #7bce7b, #ebeb83);
-    height: 572px;
 }
 
 .spc {
@@ -88,5 +92,17 @@ a.btn-nav:hover{
     section{
         display: grid;
         margin: 15px 0;
+    }
+    .wm{
+        width: 100%;
+    }
+    nav{
+        height: 100%;
+    }
+    .neo-container{
+        margin-top: 120px;
+    }
+    .botoes{
+        padding: 0%;
     }
 }

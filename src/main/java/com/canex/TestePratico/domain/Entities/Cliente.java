@@ -1,4 +1,4 @@
-package com.canex.TestePratico.domain.Entities;
+package com.canex.TestePratico.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,4 +21,30 @@ public class Cliente {
 
     @Column(name = "cnpj", unique = true)
     private String cnpj;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    
 }

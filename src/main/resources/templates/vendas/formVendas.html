@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>+ Criar um venda</title>
+    <meta name="Author" content="João Vitor" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://kit.fontawesome.com/006642858d.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;1,600&family=Ubuntu&family=Work+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div th:replace="~{fragmentos/fragmentos :: cabecalho}"></div>
+
+    <div class="container" style="margin-top: 50px">
+      <h4>+ Registro de Vendas</h4>
+      <hr />
+      <br />
+      <form action="#" th:action="@{/InsertVendas}" method="post" th:object="${venda}">
+
+        <div class="row" th:each="vendas : ${vendasRealizadas}">
+          <div class="col-md-6 form-group offset-md-3">
+            <label for="numVenda">Número da Venda:    </label>            
+            <label th:text="${vendas}"></label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group offset-md-3">
+            <label for="data_compra">Data da Venda:   </label>
+            <label id="dataFormatada"></label>
+          </div>
+        </div>
+
+        <div class="row" >
+          <div class="col-md-6 form-group offset-md-3">
+            <label for="cliente_id">Cliente:    </label>
+            <input 
+              class="form-control" 
+              type="text" 
+              id="cliente_id" 
+              name="cliente_id" 
+              th:field="*{cliente_id}" 
+              placeholder="Digite o nome do Cliente" 
+              required
+            >
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6 form-group offset-md-3">
+            <label for="cep">CEP de Entrega:    </label>
+            <input 
+              class="form-control" 
+              type="text" 
+              id="cep" 
+              name="cep" 
+              th:field="*{cep}" 
+              placeholder="Digite o CEP"             
+              required
+            />
+            <button
+              type="button"
+              onclick="buscarCEP()"
+              class="btn btn-dark"
+              style="margin-top: 10px"
+            >
+              Buscar CEP
+            </button>        
+          </div>
+        </div>
+
+        <div id="resultadoCEP"></div>
+
+        <div class="row">
+          <div class="col-md-6 form-group offset-md-3">
+            <label for="endereco">Endereço de Entrega:</label>
+            <input 
+              class="form-control" 
+              type="text" 
+              id="endereco" 
+              name="endereco"
+              th:field="*{endereco}" 
+              readonly 
+              required
+            >
+          </div>
+        </div>
+        
+        <br>
+
+        <div class="row">
+          <div class="col-md-6 form-group offset-md-3">
+            <div class="row d-flex justify-content-between">
+              <a class="btn btn-outline-danger" th:href="@{/}">Voltar</a>
+              <button type="submit" class="btn btn-success">
+                Finalizar Venda
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <br>
+
+      </form>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script th:inline="javascript">
+      const dataAtual = new Date();
+      const dataFormatada = `${String(dataAtual.getDate()).padStart(2, '0')}/${String(dataAtual.getMonth() + 1).padStart(2, '0')}/${dataAtual.getFullYear()}`;
+      document.getElementById('dataFormatada').textContent = `${dataFormatada}`;
+    </script>
+  </body>
+</html>
+

@@ -8,6 +8,7 @@
     <meta name="Author" content="João Vitor" />
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://kit.fontawesome.com/006642858d.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;1,600&family=Ubuntu&family=Work+Sans&display=swap"
       rel="stylesheet"
@@ -16,12 +17,21 @@
   <body>
 
     <header th:fragment="cabecalho">
-        <nav class="navbar navbar-expand-lg navbar-dark"> 
+        <nav class="navbar navbar-expand-lg navbar-dark">
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navMobile"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
           <div id="navMobile" class="navbar-collapse collapse buttons-nav">
             <a class="btn-nav nav-item nav-link spc" th:href="@{/}"><i class="fas fa-home"></i> Home</a>
             <a class="btn-nav nav-item nav-link spc" th:href="@{inserirVendas}"><i class="fa fa-shopping-cart"></i> Criar Venda</a>
-            <a class="btn-nav nav-item nav-link spc" th:href="@{/}"><i class="fas fa-search"></i> Vendas Realizadas</a>
-            <a class="btn-nav nav-item nav-link btn-danger spc"><i class="fas fa-times"></i> Sair</a>
+            <a class="btn-nav nav-item nav-link spc" th:href="@{listarVendas}"><i class="fas fa-search"></i> Vendas Realizadas</a>
           </div>
         </nav>
       </header>
@@ -32,7 +42,7 @@
         </div>
       </footer>
 
-    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
