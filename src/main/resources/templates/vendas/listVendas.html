@@ -29,7 +29,7 @@
           <th scope="col">Total</th>
         </thead>
         <tbody>
-          <tr scope="row" th:each="vendas : ${listagemVendas}">
+          <tr scope="row" th:each="vendas : ${listagemVendas}" >
             <td th:text="${vendas.id}"></td>
             <td th:text="${#dates.format(vendas.data_compra, 'dd/MM/yyyy')}"></td>
             <td th:text="${vendas.cliente_id}"></td>

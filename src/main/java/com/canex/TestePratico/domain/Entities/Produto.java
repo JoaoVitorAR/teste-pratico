@@ -22,7 +22,7 @@ public class Produto {
     private String descricao;
 
     @Column(name = "preco_unitario")
-    private BigDecimal preco;
+    private BigDecimal preco_unitario;
 
     public Long getId() {
         return id;
@@ -41,10 +41,10 @@ public class Produto {
     }
 
     public BigDecimal getPreco() {
-        return preco;
+        return preco_unitario;
     }
 
     public void setPreco(BigDecimal preco) {
-        this.preco = preco;
+        this.preco_unitario = preco;
     }   
 }

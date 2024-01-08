@@ -1,3 +1,7 @@
+const dataAtual = new Date();
+const dataFormatada = `${String(dataAtual.getDate()).padStart(2, '0')}/${String(dataAtual.getMonth() + 1).padStart(2, '0')}/${dataAtual.getFullYear()}`;
+document.getElementById('dataFormatada').textContent = `${dataFormatada}`;
+
 function buscarCEP() {
     
     var cep = document.getElementById("cep").value;

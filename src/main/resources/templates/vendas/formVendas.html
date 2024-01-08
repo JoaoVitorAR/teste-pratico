@@ -22,10 +22,10 @@
       <br />
       <form action="#" th:action="@{/InsertVendas}" method="post" th:object="${venda}">
 
-        <div class="row" th:each="vendas : ${vendasRealizadas}">
+        <div class="row">
           <div class="col-md-6 form-group offset-md-3">
             <label for="numVenda">Número da Venda:    </label>            
-            <label th:text="${vendas}"></label>
+            <label th:text="${ultimaVenda}"></label>
           </div>
         </div>
 
@@ -39,21 +39,25 @@
         <div class="row" >
           <div class="col-md-6 form-group offset-md-3">
             <label for="cliente_id">Cliente:    </label>
-            <input 
-              class="form-control" 
-              type="text" 
-              id="cliente_id" 
-              name="cliente_id" 
-              th:field="*{cliente_id}" 
-              placeholder="Digite o nome do Cliente" 
-              required
-            >
+            <select class="form-control" th:field="*{cliente_id}">
+              <option 
+                th:each="cliente : ${clientes}"
+                th:value="${cliente.id}"
+                th:text="${cliente.nome}"
+                placeholder="Digite o nome do Cliente" 
+                required
+              ></option>
+            </select>
           </div>
         </div>
         
         <div class="row">
           <div class="col-md-6 form-group offset-md-3">
+            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('cep')}">
+              <label class="validation-message" th:errors="*{cep}"></label>
+            </div>
             <label for="cep">CEP de Entrega:    </label>
+            
             <input 
               class="form-control" 
               type="text" 
@@ -75,10 +79,12 @@
         </div>
 
         <div id="resultadoCEP"></div>
+        
 
         <div class="row">
           <div class="col-md-6 form-group offset-md-3">
             <label for="endereco">Endereço de Entrega:</label>
+            
             <input 
               class="form-control" 
               type="text" 
@@ -89,8 +95,116 @@
               required
             >
           </div>
+        </div>       
+
+        <div class="row">
+          <div class="col-md-8 form-group offset-md-2">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <th scope="col">Núm. Item</th>
+                <th scope="col">Cód. Produto</th>
+                <th scope="col">Desc. Produto</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Total</th>
+              </thead>
+              <tbody>
+                <tr scope="row" th:if="${vendas.venda_id} == ${ultimaVenda}" th:each="vendas : ${itensVendidos}">
+                  <td th:text="${vendas.num_item}"></td>
+                  <td th:text="${vendas.produto_id}"></td>
+                  <td th:text="${vendas.produto_id}"></td>
+                  <td th:text="${vendas.produto_id}"></td>
+                  <td th:text="${vendas.quantidade}"></td>
+                  <td th:text="${vendas.total_produto}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        
+
+        <div class="row">
+          <div class="col-md-6 form-group offset-md-3">
+            <div class="row d-flex justify-content-between">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                Adicionar produto
+              </button>
+              <div class="row" >
+                <div class="col-md-6 form-group offset-md-3">
+                  <label for="total"><strong>Total:</strong>    </label>            
+                  <!--<label th:text="${total_compra}"></label>-->
+                  <input 
+                    class="form-control" 
+                    type="text" 
+                    id="total_compra" 
+                    name="total_compra"
+                    th:field="*{total_compra}"  
+                    required
+                  >
+                </div>
+              </div>     
+            </div>
+          </div>
+        </div>
+      
+      <div class="modal fade" id="myModal" th:fragment="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Produtos</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="#" th:action="@{/InsertProdutos}" method="post" >
+                      <div class="row" >
+                        <div class="col-md-10 form-group offset-md-1">
+                          <label for="produto">Produto:    </label>
+                          <select class="form-control" >
+                            <option 
+                              th:each="produto : ${produtos}"
+                              th:value="${produto.id}"
+                              th:text="${produto.descricao}"
+                              placeholder="Digite o nome do Produto" 
+                              required
+                            ></option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row" >
+                        <div class="col-md-10 form-group offset-md-1">
+                          <label for="quantidade">Quantidade:    </label>
+                          <input 
+                            class="form-control" 
+                            type="number" 
+                            id="quantidade" 
+                            name="quantidade"
+                            th:field="*{quantidade}"  
+                            required
+                          >
+                        </div>
+                      </div>
+
+                      <br>
+
+                      <div class="row">
+                        <div class="col-md-6 form-group offset-md-3">
+                          <div class="row d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success">
+                              Adicionar produto
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
         <br>
 
         <div class="row">
@@ -112,11 +226,7 @@
     <script src="js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script th:inline="javascript">
-      const dataAtual = new Date();
-      const dataFormatada = `${String(dataAtual.getDate()).padStart(2, '0')}/${String(dataAtual.getMonth() + 1).padStart(2, '0')}/${dataAtual.getFullYear()}`;
-      document.getElementById('dataFormatada').textContent = `${dataFormatada}`;
-    </script>
+
   </body>
 </html>
 

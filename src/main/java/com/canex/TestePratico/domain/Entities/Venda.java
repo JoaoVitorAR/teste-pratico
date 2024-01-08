@@ -3,6 +3,9 @@ package com.canex.TestePratico.domain.entities;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.*;
@@ -41,6 +44,8 @@ public class Venda {
     private BigDecimal total_compra;
 
     @Column(name = "cep")
+    @Size(min =  8, max = 9, message = "O CEP deve conter 8 ou 9 caracteres. Ex: 11111-000 ou 11111000")
+    @NotBlank(message = "O CEP deve ser informado")
     private String cep;
 
     @Column(name = "endereco")

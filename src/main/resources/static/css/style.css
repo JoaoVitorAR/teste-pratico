@@ -88,7 +88,9 @@ a.btn-nav:hover{
     background-color: #ebeb83;
 }
 
-@media screen and (max-width: 800){
+
+
+@media screen and (max-width: 990px){
     section{
         display: grid;
         margin: 15px 0;
