@@ -1,232 +1,176 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>+ Criar um venda</title>
-    <meta name="Author" content="João Vitor" />
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="https://kit.fontawesome.com/006642858d.js"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;1,600&family=Ubuntu&family=Work+Sans&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div th:replace="~{fragmentos/fragmentos :: cabecalho}"></div>
 
-    <div class="container" style="margin-top: 50px">
-      <h4>+ Registro de Vendas</h4>
-      <hr />
-      <br />
-      <form action="#" th:action="@{/InsertVendas}" method="post" th:object="${venda}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>+ Criar um venda</title>
+  <meta name="Author" content="João Vitor" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://kit.fontawesome.com/006642858d.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;1,600&family=Ubuntu&family=Work+Sans&display=swap"
+    rel="stylesheet" />
+</head>
 
-        <div class="row">
-          <div class="col-md-6 form-group offset-md-3">
-            <label for="numVenda">Número da Venda:    </label>            
-            <label th:text="${ultimaVenda}"></label>
-          </div>
+<body>
+  <div th:replace="~{fragmentos/fragmentos :: cabecalho}"></div>
+
+  <div class="container" style="margin-top: 50px">
+    <h4>+ Registro de Vendas</h4>
+    <hr />
+    <br />
+    <form th:action="@{/InsertVendas}" method="post" th:object="${venda}" id="formVenda">
+
+      <div class="row">
+        <div class="col-md-6 form-group offset-md-3">
+          <label for="numVenda">Número da Venda: </label>
+          <label th:text="${ultimaVenda}"></label>
         </div>
-
-        <div class="row">
-          <div class="col-md-6 form-group offset-md-3">
-            <label for="data_compra">Data da Venda:   </label>
-            <label id="dataFormatada"></label>
-          </div>
-        </div>
-
-        <div class="row" >
-          <div class="col-md-6 form-group offset-md-3">
-            <label for="cliente_id">Cliente:    </label>
-            <select class="form-control" th:field="*{cliente_id}">
-              <option 
-                th:each="cliente : ${clientes}"
-                th:value="${cliente.id}"
-                th:text="${cliente.nome}"
-                placeholder="Digite o nome do Cliente" 
-                required
-              ></option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-md-6 form-group offset-md-3">
-            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('cep')}">
-              <label class="validation-message" th:errors="*{cep}"></label>
-            </div>
-            <label for="cep">CEP de Entrega:    </label>
-            
-            <input 
-              class="form-control" 
-              type="text" 
-              id="cep" 
-              name="cep" 
-              th:field="*{cep}" 
-              placeholder="Digite o CEP"             
-              required
-            />
-            <button
-              type="button"
-              onclick="buscarCEP()"
-              class="btn btn-dark"
-              style="margin-top: 10px"
-            >
-              Buscar CEP
-            </button>        
-          </div>
-        </div>
-
-        <div id="resultadoCEP"></div>
-        
-
-        <div class="row">
-          <div class="col-md-6 form-group offset-md-3">
-            <label for="endereco">Endereço de Entrega:</label>
-            
-            <input 
-              class="form-control" 
-              type="text" 
-              id="endereco" 
-              name="endereco"
-              th:field="*{endereco}" 
-              readonly 
-              required
-            >
-          </div>
-        </div>       
-
-        <div class="row">
-          <div class="col-md-8 form-group offset-md-2">
-            <table class="table table-bordered table-hover">
-              <thead>
-                <th scope="col">Núm. Item</th>
-                <th scope="col">Cód. Produto</th>
-                <th scope="col">Desc. Produto</th>
-                <th scope="col">Preço</th>
-                <th scope="col">Quantidade</th>
-                <th scope="col">Total</th>
-              </thead>
-              <tbody>
-                <tr scope="row" th:if="${vendas.venda_id} == ${ultimaVenda}" th:each="vendas : ${itensVendidos}">
-                  <td th:text="${vendas.num_item}"></td>
-                  <td th:text="${vendas.produto_id}"></td>
-                  <td th:text="${vendas.produto_id}"></td>
-                  <td th:text="${vendas.produto_id}"></td>
-                  <td th:text="${vendas.quantidade}"></td>
-                  <td th:text="${vendas.total_produto}"></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 form-group offset-md-3">
-            <div class="row d-flex justify-content-between">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Adicionar produto
-              </button>
-              <div class="row" >
-                <div class="col-md-6 form-group offset-md-3">
-                  <label for="total"><strong>Total:</strong>    </label>            
-                  <!--<label th:text="${total_compra}"></label>-->
-                  <input 
-                    class="form-control" 
-                    type="text" 
-                    id="total_compra" 
-                    name="total_compra"
-                    th:field="*{total_compra}"  
-                    required
-                  >
-                </div>
-              </div>     
-            </div>
-          </div>
-        </div>
-      
-      <div class="modal fade" id="myModal" th:fragment="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Produtos</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <div class="modal-body">
-                    <form action="#" th:action="@{/InsertProdutos}" method="post" >
-                      <div class="row" >
-                        <div class="col-md-10 form-group offset-md-1">
-                          <label for="produto">Produto:    </label>
-                          <select class="form-control" >
-                            <option 
-                              th:each="produto : ${produtos}"
-                              th:value="${produto.id}"
-                              th:text="${produto.descricao}"
-                              placeholder="Digite o nome do Produto" 
-                              required
-                            ></option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row" >
-                        <div class="col-md-10 form-group offset-md-1">
-                          <label for="quantidade">Quantidade:    </label>
-                          <input 
-                            class="form-control" 
-                            type="number" 
-                            id="quantidade" 
-                            name="quantidade"
-                            th:field="*{quantidade}"  
-                            required
-                          >
-                        </div>
-                      </div>
-
-                      <br>
-
-                      <div class="row">
-                        <div class="col-md-6 form-group offset-md-3">
-                          <div class="row d-flex justify-content-between">
-                            <button type="submit" class="btn btn-success">
-                              Adicionar produto
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                  </div>
-              </div>
-          </div>
       </div>
 
-        <br>
+      <div class="row">
+        <div class="col-md-6 form-group offset-md-3">
+          <label for="data_compra">Data da Venda: </label>
+          <label id="dataFormatada"></label>
+        </div>
+      </div>
 
-        <div class="row">
-          <div class="col-md-6 form-group offset-md-3">
-            <div class="row d-flex justify-content-between">
-              <a class="btn btn-outline-danger" th:href="@{/}">Voltar</a>
-              <button type="submit" class="btn btn-success">
-                Finalizar Venda
-              </button>
+      <div class="row">
+        <div class="col-md-6 form-group offset-md-3">
+          <label for="cliente_id">Cliente: </label>
+          <select class="form-control" id="cliente" th:field="*{cliente_id}">
+            <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nome}"
+              placeholder="Digite o nome do Cliente" required></option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group offset-md-3">
+          <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('cep')}">
+            <p th:each="error : ${#fields.errors('cep')}" th:text="${error}">Validation error</p>
+          </div>
+          <label for="cep">CEP de Entrega: </label>
+
+          <input class="form-control" type="text" id="cep" name="cep" th:field="*{cep}" placeholder="Digite o CEP"
+            required />
+
+          <button type="button" onclick="buscarCEP()" class="btn btn-dark" style="margin-top: 10px">
+            Buscar CEP
+          </button>
+
+          <br>
+          <br>
+          <label for="endereco">Endereço de Entrega:</label>
+          <input class="form-control" type="text" id="resultadoCEP" th:field="*{endereco}"
+            placeholder="Digite o CEP no campo acima" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8 form-group offset-md-2">
+          <table class="table table-bordered table-hover" id="tableProduto">
+            <thead>
+              <th scope="col">Núm. Item</th>
+              <th scope="col">Cód. Produto</th>
+              <th scope="col">Desc. Produto</th>
+              <th scope="col">Preço</th>
+              <th scope="col">Quantidade</th>
+              <th scope="col">Total</th>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group offset-md-3">
+          <div class="row d-flex justify-content-between">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+              Adicionar produto
+            </button>
+            <div class="row">
+              <div class="col-md-6 form-group offset-md-3">
+                <label for="total"><strong>Total:</strong></label>
+                <input class="form-control" type="text" id="listaProdutos" th:field="*{total_compra}" required disabled>
+              </div>
             </div>
           </div>
         </div>
-        
-        <br>
+      </div>
 
-      </form>
-    </div>
+      <div class="modal fade" id="myModal" th:fragment="myModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Produtos</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <div class="row">
+                  <div class="col-md-10 form-group offset-md-1">
+                    <label for="produto">Produto: </label>
+                    <select id="produto" class="form-control">
+                      <option th:each="produto : ${produtos}" th:value="${produto.id}" th:text="${produto.descricao}"
+                        required></option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-10 form-group offset-md-1">
+                    <label for="quantidade">Quantidade: </label>
+                    <input class="form-control" type="text" id="quantidade">
+                  </div>
+                </div>
 
-    <script src="js/main.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                <br>
 
-  </body>
+                <div class="row">
+                  <div class="col-md-6 form-group offset-md-3">
+                    <div class="row d-flex justify-content-between">
+                      <button type="button" onclick="InserirProduto()" class="btn btn-dark" style="margin-top: 10px">
+                        Inserir Produto
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col-md-6 form-group offset-md-3">
+          <div class="row d-flex justify-content-between">
+            <a class="btn btn-outline-danger" th:href="@{/}">Voltar</a>
+            <button type="submit" class="btn btn-success">
+              Finalizar Venda
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
 </html>
-
