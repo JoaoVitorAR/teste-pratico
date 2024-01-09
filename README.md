@@ -74,3 +74,64 @@ Você deve desenvolver uma pequena aplicação WEB utilizando a linguagem de pro
 * Executar a aplicação em containers Docker com apenas um comando 💓;
 * Código que segue boas práticas (Clean Code) 🤩;
 * Commits padronizados e com mensagens claras ⭐;
+
+## Resolucao do Teste Prático
+
+Este projeto foi desenvolvido com objetivo de mostrar minhas habilidades em desenvolvimento, esta que foram utlizadas neste projeto com o uso de tecnologias como:
+
+* Java
+* Spring Boot
+* JavaScript, HTML, CSS
+* Maven
+* Thymeleaf
+* SQLServer
+* WebService ViaCEP
+
+# Start Aplicação
+
+Se a aplicação estiver sendo startada em IDEs como VSCode, IntelliJ é possivel adicionar a extensao 'Spring Boot Dashboard' que ao abrir a aplicação será possivel executar a aplicação com apenas um click.
+
+Se por acaso nao for possivel adicionar a extensão ou preferir rodar a aplicação pelo cmd e necessário abrir o caminho raiz do projeto e executar o seguinte comando pelo cmd: 'mvn spring-boot:run'.
+
+# Aplicação SQLServer
+
+A aplicação utiliza de banco de dados SQLServer, para utilizar o banco de dados e necessário ter o 'SQL Server Management' instalado na maquina, conectar ao seu server e criar um novo banco de dados chamado 'TestePratico' ou o nome de seu desejo.
+
+Posteriormente e necessário alterar 'spring.datasource.username' e 'spring.datasource.password' para seu usuário e senha respectivamente, essas variáveis estão dentro do arquivo 'application.properties'.
+
+A aplicação irá criar as tabelas de venda, produto e cliente automaticamente.
+
+As tabelas de produto e cliente irão ser populadas pelo arquivo 'DataLoader.java' dentro da pasta service. Desta forma assim que for startada a aplicação ja será possivel utiliza-la para criar as vendas.
+
+# Aplicação WEB
+
+A aplicação funciona totalmente WEB, quando startada tem total acesso pelo endereço 'http://localhost:8080'.
+
+A aplicação abrirá no pagina inicial do projeto, contando com uma barra de navegação onde tem as abas para o 'Registro de Vendas' e 'Relação de Vendas.
+
+# Registro de Vendas
+
+'http://localhost/inserirVendas' -> tela para realização das vendas:
+
+* Número da Venda: número de registro da venda;
+* Data da Venda: data em que a venda esta sendo realizada;
+* Cliente: Selecione o cliente que esta realizando a compra;
+* CEP de entrega: informe seu CEP para que seu endereço seja inserido no campo de endereço;
+* Endereço de entrega: aguarda que o cep seja inserido no campo acima para ser preenchido, se necessario faça alterações no endereço;
+
+* Tabela: lista os produtos que estão sendo vendidos;
+* Botão 'Adicionar produto': abre um modal para selecionar o produto e a quantidade de produto;
+
+    * Produto: selecione um produto ja cadastrado em sua base de dados;
+    * Quantidade: Informe a quantidade de proutos que você deseja;
+    * Botão 'Inserir Produto': salva o produto e a quantidade e exibe na tabela abaixo do modal;
+
+* Total: Mostra o valor total final da compra;
+* Botao 'Finaliza Venda': Finaliza a venda, salva os dados inseridos e envia para a tela de 'Relação de Vendas';
+
+# Relação de Vendas
+
+'http://localhost:8080/listarVendas' -> tela de exibição das vendas realizadas:
+
+* Tabela: relação de vendas, datas, clientes e valor final de cada compra;
+
