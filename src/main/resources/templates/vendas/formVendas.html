@@ -21,7 +21,7 @@
     <h4>+ Registro de Vendas</h4>
     <hr />
     <br />
-    <form th:action="@{/InsertVendas}" method="post" th:object="${venda}" id="formVenda">
+    <form th:object="${venda}" id="formVenda">
 
       <div class="row">
         <div class="col-md-6 form-group offset-md-3">
@@ -95,7 +95,7 @@
             <div class="row">
               <div class="col-md-6 form-group offset-md-3">
                 <label for="total"><strong>Total:</strong></label>
-                <input class="form-control" type="text" id="listaProdutos" th:field="*{total_compra}" required disabled>
+                <input class="form-control" type="text" id="totalCompra" th:field="*{total_compra}" required disabled>
               </div>
             </div>
           </div>
