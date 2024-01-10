@@ -88,39 +88,46 @@ function obterValorElemento() {
     return parseFloat(document.getElementById('totalCompra').value) || 0;
 }
 
-$(document).ready(function(){  
+$(document).ready(function(){ 
+    let recuperaCEP = document.getElementById('cep');
+    let VerificacaoCEP = recuperaCEP.value.length;
     $("#formVenda").submit(function(event){
-        if ($("#totalCompra").val() != 0){
-            event.preventDefault();
-
-            var clienteId = document.getElementById("cliente");
-            var formData = {
-                id: 0,
-                cliente_id: clienteId.value,
-                total_compra: $("#totalCompra").val(),
-                cep: $("#cep").val(),
-                endereco: $("#resultadoCEP").val()
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/InsertVendas",
-                data: formData,
-                success: function(data) {
-                    alert("Venda realizada com sucesso.");
-                },
-                error: function(xhr, status, error) {
-                    var responseJSON = JSON.parse(xhr.responseText);
-                    var errorMessage = responseJSON.errorMessage;
-                    alert("Erro: " + errorMessage);
+        if (VerificacaoCEP == 8 || VerificacaoCEP == 9) {
+            if ($("#totalCompra").val() != 0){
+                event.preventDefault();
+    
+                var clienteId = document.getElementById("cliente");
+                var formData = {
+                    id: 0,
+                    cliente_id: clienteId.value,
+                    total_compra: $("#totalCompra").val(),
+                    cep: $("#cep").val(),
+                    endereco: $("#resultadoCEP").val()
                 }
-            });
-
-            window.location.reload();
-            window.location.href="/listarVendas"
-            
+    
+                $.ajax({
+                    type: "POST",
+                    url: "/InsertVendas",
+                    data: formData,
+                    success: function(data) {
+                        alert("Venda realizada com sucesso.");
+                    },
+                    error: function(xhr, status, error) {
+                        var responseJSON = JSON.parse(xhr.responseText);
+                        var errorMessage = responseJSON.errorMessage;
+                        alert("Erro: " + errorMessage);
+                    }
+                });
+    
+                window.location.reload();
+                window.location.href="/listarVendas"
+                
+            } else {
+                alert("Insira ao menos um item para venda");
+            }
         } else {
-            alert("Insira ao menos um item para venda");
+            alert('CEP inserido de forma incorreta');
         }
+        
     });
 });
